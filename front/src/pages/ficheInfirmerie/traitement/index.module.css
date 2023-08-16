@@ -1,0 +1,10 @@
+.inputFeedback {
+  color: red;
+  margin-top: .25rem;
+}
+
+.fsNavigationIcon {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}

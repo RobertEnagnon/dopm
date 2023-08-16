@@ -1,0 +1,159 @@
+/*
+
+  input.error {
+    border-color: red;
+  }
+
+  label.label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: .5rem;
+  }
+
+  .input-feedback {
+    color: red;
+    margin-top: .25rem;
+  }
+
+
+  button:disabled {
+    opacity: .5;
+    cursor: not-allowed !important;
+  }
+
+  button + button {
+    margin-left: .5rem;
+  }
+
+  button.outline {
+    background-color: #eee;
+    border: 1px solid #aaa;
+    color: #555;
+  }
+
+  .btn-icon:hover  {
+    cursor: pointer;
+  } */
+
+  .input-feedback {
+    color: red;
+    margin-top: .25rem;
+  }
+
+.action-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  gap: 10px;
+  margin: 0.5rem;
+}
+
+.mobile-button {
+  border-radius: 10px;
+  border: none;
+  padding: 6px 16px;
+  color: white;
+  font-weight: 600;
+  background-color: #153D77;
+}
+.mobile-button-disable {
+  border-radius: 10px;
+  border: none;
+  padding: 6px 16px;
+  color: black;
+  font-weight: 600;
+  background-color: #cecece;
+}
+
+.progressbar-container {
+  width: 50% !important;
+  border-radius: 4px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.progress {
+  width: 100%;
+  height: 1rem;
+}
+.progress-bar{
+  background-color: #153D77;
+}
+
+.radio-container {
+  margin-top: 6px;
+  padding: 0;
+}
+.radio-container input[type=radio] {
+  display: none;
+}
+.radio-container label:not(:first-child) {
+  display: flex;
+  flex: 1;
+
+  text-align: center;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  max-width: 95%;
+  padding: 8px 12px;
+
+  background-color: #cecece;
+  border: 1px #cecece;
+  border-radius: 8px;
+
+  color: black;
+  font-weight: 400;
+}
+.radio-container input[type=radio]:checked+label {
+  background-color: #153D77;
+  border: 1px #153D77;
+
+  color: white;
+}
+.radio-container input[type=radio]:hover+label {
+  background-color: #153D77;
+  border: 1px #153D77;
+
+  color: white;
+}
+
+.radio-container {
+  margin-top: 6px;
+  padding: 0;
+}
+.radio-container input[type=radio] {
+  display: none;
+}
+.radio-container label:not(:first-child) {
+  display: flex;
+  flex: 1;
+
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  max-width: 95%;
+  padding: 8px 12px;
+
+  background-color: #cecece;
+  border: 1px #cecece;
+  border-radius: 8px;
+
+  color: black;
+  font-weight: 400;
+}
+.radio-container input[type=radio]:checked+label {
+  background-color: #153D77;
+  border: 1px #153D77;
+
+  color: white;
+}
+.radio-container input[type=radio]:hover+label {
+  background-color: #153D77;
+  border: 1px #153D77;
+
+  color: white;
+}

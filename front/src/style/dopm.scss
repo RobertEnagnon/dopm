@@ -1,0 +1,26 @@
+$warning: #ff9800;
+.btn-warning {
+  --bs-btn-color: #fff!important;
+}
+.btn-warning:active {
+  --bs-btn-color: #fff!important;
+}
+.container-fluid {
+  width: 95%!important;
+}
+
+.dopm-tab {
+  color: #153D77!important;
+  font-weight: 500!important;
+  text-transform: uppercase!important;
+
+  .dopm-active-tab-indicator {
+    height: 2px!important;
+    width: 60%!important;
+    border-radius: 50%!important;
+    background-color: #153D77!important;
+    margin: auto!important;
+  }
+}
+
+@import "bootstrap";

@@ -1,0 +1,36 @@
+{
+    "mail": {
+       "text1": "Good morning",
+       "text2": "The sheet",
+       "text3": "has been added",
+       "text4": "The sheet contains the information below",
+       "text5": "Reference",
+       "text6": "Location of detection",
+       "text7": "Safety Applied",
+       "text8": "Proposed measure",
+       "text9": "Category",
+       "text10": "Transmitter",
+       "text11": "Service",
+       "text12": "Team",
+       "text13": "Description",
+       "text14": "Zone",
+       "text15": "Sub-Zone",
+       "text16": "Action",
+       "text17": "Responsible",
+       "text18": "Deadline",
+       "text19": "has been modified",
+       "text20": "Field",
+       "text21": "Old Values",
+       "text22": "New Values",
+       "text23": "Traitement",
+       "text24": "Status",
+       "text25": "Classification",
+       "text26": "Field",
+       "text27": "Modified",
+       "text28": "Add",
+       "text29": "Access the sheet",
+
+       "sug1": "The suggestion sheet",
+       "sug2": "Suggestion sheet"
+    }
+}

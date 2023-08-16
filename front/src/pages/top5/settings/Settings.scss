@@ -1,0 +1,67 @@
+.font-size-style {
+  font-size: 0.9em;
+
+  &:hover {
+    font-size: 0.95em;
+    cursor: pointer;
+  }
+}
+
+.arrow-style {
+  font-size: 1.4em;
+  float: left;
+
+  &:hover {
+    font-size: 1.6em;
+    cursor: pointer;
+    color: rgb(64, 104, 177);
+  }
+}
+
+.arrow-style-sm {
+  font-size: 1.2em;
+  float: left;
+
+  &:hover {
+    font-size: 1.4em;
+    cursor: pointer;
+    color: rgb(64, 104, 177);
+  }
+}
+
+.trashcan-style {
+  @extend .font-size-style;
+
+  &:hover {
+    @extend .font-size-style;
+    color: #dc3545;
+  }
+}
+
+.pencil-style {
+  @extend .font-size-style;
+
+  &:hover {
+    @extend .font-size-style;
+    color: rgb(64, 104, 177);
+  }
+}
+
+.btn {
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+.radioButton {
+  margin: 0 1rem 0 0;
+  padding: 0 .75rem;
+  border-radius: 15px !important;
+}
+
+.formCalculHistorical {
+  margin-bottom: 0 !important;
+}
+
+.labelCalculHistorical {
+  margin-bottom: 0 !important;
+}

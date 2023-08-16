@@ -1,0 +1,49 @@
+.full-size {
+  width: 100%;
+  height: 100%;
+}
+
+.webcam {
+  width: 100%;
+}
+
+.webcam-unavailable {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.p-20 {
+  padding: 20px;
+}
+.pb-20 {
+  padding-bottom: 20px;
+}
+
+.w-100 {
+  width: 100%;
+}
+.color-white {
+  color: white;
+}
+.rounded-outlined-white {
+  border-radius: 50%;
+  border: 2px solid black;
+  background-color: white;
+  cursor: pointer;
+}
+.camera-icon {
+  font-size: 50px;
+}
+.fa-times {
+  color: #636363;
+}

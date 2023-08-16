@@ -1,0 +1,27 @@
+.card-body {
+	.groupe-card {
+		cursor: pointer;
+		padding: 20px;
+		border-top: 1px solid #ddd;
+		transition: .3s ease;
+
+		&:last-child {
+			border-bottom: 1px solid #ddd;
+		}
+
+		&:hover, &.active {
+			background: #ddd;
+		}
+	}
+}
+
+.specificPermissionsArray {
+	th {
+		text-align: center;
+	}
+
+	tbody td:not(:first-child) {
+		text-align: center;
+	}
+}
+

@@ -1,0 +1,10 @@
+.sidebar-item.disabled
+{
+	pointer-events: none;
+
+	.sidebar-link
+	{
+		cursor: not-allowed;
+		color: darkgrey;
+	}
+}

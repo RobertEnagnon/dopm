@@ -1,0 +1,84 @@
+.drapeaux {
+    max-width: 3.2rem;
+    flex: 1;
+    cursor: pointer;
+}
+
+/*Regle pour les écrans dont la largeur est inférieur à 600px*/
+@media only screen and (max-width: 600px) {
+    h2 {
+        font-size: 1.5em;
+    }
+    p {
+        font-size: 0.8em;
+    }
+    .drapeaux {
+        width: 6%;
+    }
+}
+
+
+ /*Regle pour les écrans dont la largeur est comprise entre 599px et 1279px */
+@media screen and (min-width: 599px) and (max-width: 1279px) {
+    h2 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1em;
+    }
+    .drapeaux {
+        width: 2%;
+    }
+  }
+
+  /*Regle pour les écrans dont la largeur est comprise entre 1280px et 1439px */
+  @media screen and (min-width: 1280px) and (max-width: 1439px) {
+    h2 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1em;
+    }
+    .drapeaux {
+        width: 1.5%;
+    }
+  }
+
+  /*Regle pour les écrans dont la largeur est comprise entre 1440px et 1919px HD PC Portable 15" */
+  @media screen and (min-width: 1440px) and (max-width: 1919px) {
+    h2 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1em;
+    }
+    .drapeaux {
+        width: 1.5%;
+    }
+  }
+
+  /*Regle pour les écrans dont la largeur est comprise entre 1920px FullHD Portable 17" */
+  @media screen and (min-width: 1920px) and (max-width: 2559px) {
+    h2 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1em;
+    }
+    .drapeaux {
+        width: 1.5%;
+    }
+  }
+
+  /*Regle pour les écrans dont la largeur est comprise entre 2560px et 8K */
+  @media screen and (min-width: 2560px) and (max-width: 4800px) {
+    h2 {
+        font-size: 2.3em;
+    }
+    p {
+        font-size: 1.3em;
+    }
+    .drapeaux {
+        width: 1.5%;
+    }
+  }

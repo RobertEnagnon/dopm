@@ -1,0 +1,24 @@
+.icone{
+    color: White;
+    font-size: 0.85em;
+    margin: 4px;
+    vertical-align: middle;
+
+    //  &:focus{}
+     &:hover{
+         color: #6f42c1;
+     }
+}
+
+.active-top5-header{
+  color: #ffc107 !important;
+}
+
+.locked{
+  color: #6c757d;
+
+  &:hover{
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+}

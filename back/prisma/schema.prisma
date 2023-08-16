@@ -1,0 +1,788 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
+}
+
+model versionning {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique @db.VarChar(50)
+  date     DateTime  @default(now())
+  features feature[]
+}
+
+model feature {
+  id         Int         @id @default(autoincrement())
+  name       String      @db.VarChar(250)
+  version_id Int
+  version    versionning @relation(fields: [version_id], references: [id])
+}
+
+model top5_branch {
+  id             Int                       @id @default(autoincrement())
+  name           String?                   @unique @db.VarChar(50)
+  orderBranch    Int?
+  createdAt      DateTime                  @default(now())
+  updatedAt      DateTime                  @default(now())
+  category       top5_category[]
+  permittedUsers rights_user_permissions[]
+}
+
+model top5_category {
+  id             Int                       @id @default(autoincrement())
+  name           String?                   @db.VarChar(50)
+  orderCategory  Int?
+  branch_id      Int
+  link           link[]
+  indicator      top5_indicator[]
+  branch         top5_branch[]
+  permittedUsers rights_user_permissions[]
+}
+
+model top5_curve {
+  id           Int       @id @default(autoincrement())
+  name         String?   @db.VarChar(50)
+  curveType    Int?
+  color        String?   @db.VarChar(10)
+  indicator    top5_indicator @relation(fields: [indicator_id], references: [id])
+  indicator_id Int
+  data         top5_data[]
+}
+
+model as_board {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(50)
+  order     Int       @default(0)
+  createdAt DateTime  @default(now())
+
+  tables      as_tables[]
+  categories  as_categories[]
+}
+
+model as_categories {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  color       String
+
+  tasks       as_tasks[]
+  asBoard     as_board? @relation(fields: [asBoardId], references: [id])
+  asBoardId   Int?
+
+  createdAt DateTime @default(now())
+  createdBy String?
+  updatedAt DateTime @default(now())
+  updatedBy String?
+}
+
+model as_tables {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  color       String
+
+  orderTable  Int
+  tasks       as_tasks[]
+  asBoard     as_board? @relation(fields: [asBoardId], references: [id])
+  asBoardId   Int?
+
+  createdAt DateTime @default(now())
+  createdBy String?
+  updatedAt DateTime @default(now())
+  updatedBy String?
+}
+
+model as_tasks {
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(150)
+  description String @db.VarChar(200)
+  remain      String
+  estimation  String
+
+  orderTask Int
+  archived  Int @default(0)
+
+  category   as_categories? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId Int?
+
+  table   as_tables? @relation(fields: [tableId], references: [id], onDelete: SetNull)
+  tableId Int?
+
+  createdAt  DateTime  @default(now())
+  createdBy  String?
+  updatedAt  DateTime  @default(now())
+  updatedBy  String?
+  archivedAt DateTime?
+
+  checklist       as_checklist[]
+  files           as_file[]
+  responsibles    as_responsible[]
+  conversation    as_task_conversation[]
+}
+
+model as_task_conversation {
+  id        Int      @id @default(autoincrement())
+
+  userId    Int
+  user      user     @relation(fields: [userId], references: [id])
+
+  taskId    Int
+  task      as_tasks @relation(fields: [taskId], references: [id])
+
+  text      String
+  createdAt DateTime
+}
+
+model as_checklist {
+  id          Int             @id @default(autoincrement())
+  label       String
+  done        Int             @default(0)
+  taskId      Int
+
+  task        as_tasks         @relation(fields: [taskId], references: [id])
+}
+
+model as_file {
+  id          Int             @id @default(autoincrement())
+  label       String
+  path        String
+  taskId      Int
+
+  task        as_tasks         @relation(fields: [taskId], references: [id])
+}
+
+model as_responsible {
+  taskId             Int
+  userId             Int
+
+  task               as_tasks            @relation(fields: [taskId], references: [id])
+  responsible        user            @relation(fields: [userId], references: [id])
+
+  @@id([taskId, userId])
+}
+
+model top5_data {
+  id       Int     @id @default(autoincrement())
+  date     String? @db.VarChar(10)
+  data     String? @db.VarChar(10)
+  comment  String?
+  curve    top5_curve   @relation(fields: [curve_id], references: [id])
+  curve_id Int
+}
+
+model top5_historical {
+  id           Int       @id @default(autoincrement())
+  month        String?   @db.VarChar(10)
+  year         String?   @db.VarChar(4)
+  data         String?   @db.VarChar(10)
+  target       String?   @db.VarChar(10)
+  comment      String    @default("") @db.VarChar(100)
+  indicator    top5_indicator @relation(fields: [indicator_id], references: [id])
+  indicator_id Int
+}
+
+model top5_indicator {
+  id                   Int              @id @default(autoincrement())
+  name                 String?          @db.VarChar(50)
+  orderIndicator       Int?
+  reading              Int              @default(0)
+  unity                String           @default("NULL") @db.VarChar(50)
+  responsible          String           @default("NULL") @db.VarChar(50)
+  isDisplayCumulative  Int?             @db.TinyInt
+  category             top5_category         @relation(fields: [category_id], references: [id])
+  category_id          Int
+  curve                top5_curve[]
+  historical           top5_historical[]
+  target               top5_target[]
+  isMonthlyMode        Boolean          @default(false)
+  indicatorMode        Int              @default(0)
+  range                Int              @default(5)
+  calculHisto          top5_calculhistorical @relation(fields: [indicatorCalculHisto], references: [id])
+  indicatorCalculHisto Int              @default(1)
+  fileType             Int              @default(0)
+  fileName             String?
+  boardTuile           boardtuile[]     @relation("indicator")
+  updatedAt            DateTime         @default(now())
+  isArchived           Boolean          @default(false)
+
+  module              Int?         @default(0)
+
+  moduleZone          zone?        @relation(fields: [moduleZoneId], references: [id])
+  moduleZoneId        Int?
+
+}
+
+model link {
+  id          Int      @id @default(autoincrement())
+  title       String?  @db.VarChar(50)
+  link        String?
+  category    top5_category @relation(fields: [category_id], references: [id])
+  category_id Int
+}
+
+model top5_target {
+  id           Int       @id @default(autoincrement())
+  name         String?   @db.VarChar(50)
+  target       String?   @db.VarChar(10)
+  color        String?   @db.VarChar(10)
+  targetType   Int?
+  targetGoal   Int?
+  indicator    top5_indicator @relation(fields: [indicator_id], references: [id])
+  indicator_id Int
+}
+
+model languages {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  user_language user_language[]
+}
+
+model user {
+  id             Int                       @id @default(autoincrement())
+  last_name      String?                   @db.VarChar(191)
+  first_name     String?                   @db.VarChar(191)
+  email          String?                   @unique @db.VarChar(191)
+  fonction       String?                   @db.VarChar(50)
+  url            String?                   @db.VarChar(191)
+  username       String?                   @unique
+  password       String?                   @db.LongText
+  serviceId      Int?
+  role           user_roles[]
+  language       user_language[]
+  isComityUser   Boolean?
+  isResponsible  Int                       @default(0)
+  groupes        rights_user_groupes[]
+  permissions    rights_user_permissions[]
+  createdAt      DateTime                  @default(now())
+  updatedAt      DateTime                  @default(now())
+  isAlterateDate Boolean                   @default(false)
+
+  FicheConservatoire fs_fichesecurites[]   @relation("responsibleConservatoire")
+  FicheSecurite      fs_fichesecurites[]   @relation("responsibleSecurite")
+  FicheInfirmerie    fi_ficheinfirmeries[] @relation("responsibleSecurite")
+  FicheInfAssignation fi_ficheinfirmeries[] @relation("fiAssignation")
+  FS_notification    fs_notification[] @relation("responsableNotification")
+  FI_notification    fi_notification[] @relation("FiResponsableNotification")
+
+  Suggestions        sug_suggestions[]     @relation("responsableSuggestion")
+  service            service?           @relation(fields: [serviceId], references: [id])
+  responsibleOfTasks  as_responsible[]
+  as_tasks_conversation as_task_conversation[]
+}
+
+model roles {
+  id        Int          @id @default(autoincrement())
+  name      String       @unique
+  user_role user_roles[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
+}
+
+model user_language {
+  language   languages @relation(fields: [languageId], references: [id])
+  languageId Int
+  user       user      @relation(fields: [userId], references: [id])
+  userId     Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now())
+
+  @@id([languageId, userId])
+}
+
+model user_roles {
+  role      roles    @relation(fields: [roleId], references: [id])
+  roleId    Int
+  user      user     @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@id([roleId, userId])
+}
+
+model service {
+  id            Int             @id @default(autoincrement())
+  name          String?         @db.VarChar(50)
+  description   String?         @db.VarChar(191)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  FicheSecurite fs_fichesecurites[]
+  FicheInfirmerie fi_ficheinfirmeries[]
+//  Checkpoint    at_checkpoint[]
+  checkpoint_service at_checkpoint_service[]
+  Audit         at_audit[]
+  Suggestion    sug_suggestions[]
+  users         user[]
+}
+
+model team {
+  id            Int             @id @default(autoincrement())
+  name          String?         @db.VarChar(50)
+  description   String?         @db.VarChar(191)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  FicheSecurite fs_fichesecurites[]
+  FicheInfirmerie fi_ficheinfirmeries[]
+  Suggestion    sug_suggestions[]
+}
+
+model zone {
+  id              Int               @id @default(autoincrement())
+  name            String?           @db.VarChar(50)
+  description     String?           @db.VarChar(191)
+  subzones        subzone[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @default(now())
+  FicheSecurite   fs_fichesecurites[]
+  FicheInfirmerie fi_ficheinfirmeries[]
+  FS_notification fs_notification[] @relation("zone")
+  FI_notification fi_notification[] @relation("zone")
+  Checkpoint      at_checkpoint[]
+  IndicatorsTop5  top5_indicator[]   // AF - Permet de get fiche sécu uniquement sur une zone
+}
+
+model subzone {
+  id            Int             @id @default(autoincrement())
+  name          String?         @db.VarChar(50)
+  description   String?         @db.VarChar(191)
+  zone          zone            @relation(fields: [zone_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  zone_id       Int
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  FicheSecurite fs_fichesecurites[]
+  FicheInfirmerie fi_ficheinfirmeries[]
+  Checkpoint    at_checkpoint[]
+}
+
+model fs_category {
+  id            Int             @id @default(autoincrement())
+  name          String?         @db.VarChar(50)
+  description   String?         @db.VarChar(191)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  FicheSecurite fs_fichesecurites[]
+}
+
+model fs_classification {
+  id                 Int             @id @default(autoincrement())
+  name               String?         @db.VarChar(50)
+  description        String?         @db.VarChar(191)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @default(now())
+  FicheSecuriteClass fs_fichesecurites[]
+}
+
+model fs_fichesecurites {
+  id                     Int       @id @default(autoincrement())
+  id_fs                  String?   @unique @db.VarChar(10)
+
+  senderFirstname        String?   @db.VarChar(50)
+  senderLastname         String?   @db.VarChar(50)
+  description            String?   @db.VarChar(300)
+  mesureSecurisation     String?   @db.VarChar(200)
+  mesureConservatoire    String?   @db.VarChar(200)
+  deadLineConservatoire  DateTime? @default(now())
+  service                service?  @relation(fields: [service_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  service_id             Int?
+  team                   team?     @relation(fields: [team_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  team_id                Int?
+  responsibleSecurite    user?     @relation("responsibleSecurite", fields: [responsibleSecurite_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  responsibleSecurite_id Int?
+
+  responsibleConservatoire    user? @relation("responsibleConservatoire", fields: [responsibleConservatoire_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  responsibleConservatoire_id Int?
+  zone                        zone? @relation(fields: [zone_id], references: [id], onDelete: SetNull)
+  zone_id                     Int?
+
+  subzone    subzone? @relation(fields: [subzone_id], references: [id], onDelete: SetNull)
+  subzone_id Int?
+
+  status String? @db.VarChar(50)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  FSCategory    fs_category? @relation(fields: [fsCategory_id], references: [id], onDelete: SetNull)
+  fsCategory_id Int?
+
+  classification    fs_classification? @relation(fields: [classification_id], references: [id], onDelete: SetNull)
+  classification_id Int?
+  image1            String?
+  image2            String?
+  image3            String?
+  commentaireStatus String?
+}
+
+model sug_category {
+  id         Int          @id @default(autoincrement())
+  name       String?      @db.VarChar(50)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now())
+  suggestion sug_suggestions[]
+}
+
+model sug_classification {
+  id         Int          @id @default(autoincrement())
+  name       String?      @db.VarChar(50)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now())
+  suggestion sug_suggestions[]
+}
+
+model sug_workflow {
+  id              Int         @id @default(autoincrement())
+  suggestion      sug_suggestions? @relation(fields: [suggestion_id], references: [id])
+  suggestion_id   Int         @unique
+  firstValidated  Boolean?
+  firstComment    String?
+  secondValidated Boolean?
+  secondComment   String?
+}
+
+model sug_suggestions {
+  id                   Int                @id @default(autoincrement())
+  id_sug                String?            @unique @db.VarChar(10)
+
+  senderFirstname      String             @db.VarChar(50)
+  senderLastname       String             @db.VarChar(50)
+  description          String             @db.VarChar(300)
+  sugCategory          sug_category?       @relation(fields: [sugCategory_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  sugCategory_id       Int?
+  sugClassification    sug_classification? @relation(fields: [sugClassification_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  sugClassification_id Int?
+  service              service?           @relation(fields: [service_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  service_id           Int?
+  team                 team?              @relation(fields: [team_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  team_id              Int?
+  responsible          user?              @relation("responsableSuggestion", fields: [responsible_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  responsible_id       Int?
+  imageNameOne         String?
+  imageNameTwo         String?
+  imageNameThree       String?
+
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
+  statusWorkflow sug_workflow?
+}
+
+model boardtuile {
+  id           Int        @id @default(autoincrement())
+  i            String     @db.VarChar(50)
+  branche      String?    @db.VarChar(50)
+  category     String?    @db.VarChar(50)
+  format       String?    @db.VarChar(50)
+  h            Int        @db.Int
+  indicator    top5_indicator? @relation("indicator", fields: [indicator_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  indicator_id Int?       @db.Int
+  isBounded    Boolean?   @db.TinyInt
+  isDraggable  Boolean?   @db.TinyInt
+  isResizable  Boolean?   @default(true) @db.TinyInt
+  maxH         Int?       @db.Int
+  maxW         Int?       @db.Int
+  minH         Int?       @db.Int
+  minW         Int?       @db.Int
+  moved        Boolean?   @db.TinyInt
+  periode      String?    @db.VarChar(50)
+  static       Boolean?   @db.TinyInt
+  tool         String?    @db.VarChar(50)
+  type         String?    @db.VarChar(50)
+  w            Int        @db.Int
+  x            Int        @db.Int
+  y            Int        @db.Int
+  user         Int        @db.Int
+  size         String     @db.VarChar(10)
+  dashboard_id  Int?
+  dashboard    dashboard?  @relation(fields: [dashboard_id], references: [id])
+}
+
+model dashboard {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(50)
+  order     Int       @default(0)
+  createdAt DateTime  @default(now())
+
+  BoardTuiles  boardtuile[]
+}
+
+model fs_notification {
+  id             Int     @id @default(autoincrement())
+  responsable    user?   @relation("responsableNotification", fields: [responsable_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  responsable_id Int?
+  zone           zone?   @relation("zone", fields: [zone_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  zone_id        Int?
+  isSubscribed   Boolean @default(true)
+}
+
+model at_audit {
+  id        Int      @id @default(autoincrement())
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+  createdBy String?
+  updatedAt DateTime @default(now())
+  updatedBy String?
+
+  service   service? @relation(fields: [serviceId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  serviceId Int?
+
+  Evaluations at_evaluation[]
+}
+
+model at_map {
+  id    Int     @id @default(autoincrement())
+  image String?
+}
+
+model at_checkpoint {
+  id          Int      @id @default(autoincrement())
+  numero      Int      @default(0)
+  standard    String
+  description String?
+  createdAt   DateTime @default(now())
+  createdBy   String?
+  updatedAt   DateTime @default(now())
+  updatedBy   String?
+  image       String?
+
+  period   period?
+  periodId Int?
+
+  checkpoint_service at_checkpoint_service[]
+
+  zone   zone? @relation(fields: [zoneId], references: [id], onDelete: SetNull)
+  zoneId Int?
+
+  subzone   subzone? @relation(fields: [subzoneId], references: [id], onDelete: SetNull)
+  subzoneId Int?
+
+  category   at_category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId Int?
+
+  Evaluations at_evaluation[]
+}
+
+model at_checkpoint_service {
+    id_service          Int
+    id_atcheckpoint     Int
+
+    service service @relation(fields: [id_service], references: [id], onUpdate: Restrict)
+    checkpoint at_checkpoint @relation(fields: [id_atcheckpoint], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  @@id([id_service, id_atcheckpoint])
+  @@index([id_service], name: "at_checkpoint_service_service_FK")
+}
+
+model at_evaluation {
+  id        Int      @id @default(autoincrement())
+  check     String?
+  comment   String?
+  image     String?  @db.VarChar(120)
+  createdAt DateTime @default(now())
+  createdBy String?
+  updatedAt DateTime @default(now())
+  updatedBy String?
+
+  checkpoint   at_checkpoint? @relation(fields: [checkpointId], references: [id], onDelete: SetNull)
+  checkpointId Int?
+
+  audit   at_audit? @relation(fields: [auditId], references: [id], onDelete: SetNull)
+  auditId Int?
+}
+
+model at_category {
+  id    Int    @id @default(autoincrement())
+  color String
+  name  String @unique @db.VarChar(50)
+
+  createdAt DateTime @default(now())
+  createdBy String?
+  updatedAt DateTime @default(now())
+  updatedBy String?
+
+  Checkpoint at_checkpoint[]
+}
+
+model rights_groupes {
+  id                         Int                          @id @default(autoincrement())
+  name                       String                       @unique @db.VarChar(100)
+  rights_groupes_permissions rights_groupes_permissions[]
+  rights_user_groupes        rights_user_groupes[]
+}
+
+model rights_groupes_permissions {
+  id_groupe          Int
+  id_permission      Int
+  rights_groupes     rights_groupes     @relation(fields: [id_groupe], references: [id], onUpdate: Restrict)
+  rights_permissions rights_permissions @relation(fields: [id_permission], references: [id], onUpdate: Restrict)
+
+  @@id([id_groupe, id_permission])
+  @@index([id_permission], name: "rights_groupes_permissions_permission_FK")
+}
+
+model rights_permissions {
+  id                         Int                          @id @default(autoincrement())
+  name                       String                       @unique @db.VarChar(100)
+  rights_groupes_permissions rights_groupes_permissions[]
+  rights_user_permissions    rights_user_permissions[]
+}
+
+model rights_user_groupes {
+  id_user        Int
+  id_groupe      Int
+  rights_groupes rights_groupes @relation(fields: [id_groupe], references: [id], onUpdate: Restrict)
+  user           user           @relation(fields: [id_user], references: [id], onUpdate: Restrict)
+
+  @@id([id_user, id_groupe])
+  @@index([id_groupe], name: "rights_user_groupes_groupe_FK")
+}
+
+model rights_user_permissions {
+  id                 Int                @id @default(autoincrement())
+  id_user            Int
+  id_permission      Int
+  id_branch          Int?
+  id_category        Int?
+  id_dashboard       Int?
+  branch             top5_branch?            @relation(fields: [id_branch], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  category           top5_category?          @relation(fields: [id_category], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  rights_permissions rights_permissions @relation(fields: [id_permission], references: [id], onUpdate: Restrict)
+  user               user               @relation(fields: [id_user], references: [id], onUpdate: Restrict)
+
+  @@index([id_branch], name: "rights_user_permissions_branch_FK")
+  @@index([id_category], name: "rights_user_permissions_category_FK")
+  @@index([id_permission], name: "rights_user_permissions_permission_FK")
+}
+
+model period {
+  id           Int            @id @default(autoincrement())
+  periodEnum   Int
+  every        Int
+  everyMonth   Int?
+  day          String?
+  month        String?
+  frequency    String?
+  rank         String?
+  checkpoint   at_checkpoint? @relation(fields: [checkpointId], references: [id])
+  checkpointId Int?           @unique
+}
+
+model fi_injuredcategory {
+  id                      Int          @id @default(autoincrement())
+  name                    String?      @db.VarChar(50)
+  isInjuredCategoryName   Boolean?
+  createdAt               DateTime     @default(now())
+  updatedAt               DateTime     @default(now())
+  FicheInfirmerie         fi_ficheinfirmeries[]
+}
+
+model fi_materialelements {
+  id              Int                 @id @default(autoincrement())
+  name            String?             @db.VarChar(50)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @default(now())
+  FicheInfirmerie fi_ficheinfirmeries[]
+}
+
+model fi_lesiondetails {
+  id              Int                 @id @default(autoincrement())
+  name            String?             @db.VarChar(50)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @default(now())
+  FicheInfirmerie fi_ficheinfirmeries[]
+}
+
+model fi_careprovided {
+  id              Int                 @id @default(autoincrement())
+  name            String?             @db.VarChar(50)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @default(now())
+  FicheInfirmerie fi_ficheinfirmeries[]
+}
+
+model fi_classification {
+  id                 Int             @id @default(autoincrement())
+  name               String?         @db.VarChar(50)
+  description        String?         @db.VarChar(191)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @default(now())
+  FicheInfirmerie    fi_ficheinfirmeries[]
+}
+
+model fi_notification {
+  id             Int     @id @default(autoincrement())
+  responsable    user?   @relation("FiResponsableNotification", fields: [responsable_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  responsable_id Int?
+  zone           zone?   @relation("zone", fields: [zone_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  zone_id        Int?
+  isSubscribed   Boolean @default(true)
+}
+
+model fi_ficheinfirmeries {
+  id                     Int               @id @default(autoincrement())
+  id_fi                  String?           @unique @db.VarChar(10)
+  injuredCategory        fi_injuredcategory?  @relation(fields: [injuredCategory_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  injuredCategory_id     Int?
+  injuredCategoryName    String?           @db.VarChar(50)
+  senderFirstname        String?           @db.VarChar(50)
+  senderLastname         String?           @db.VarChar(50)
+  post                   String?           @db.VarChar(50)
+  responsibleSecurite    user?             @relation("responsibleSecurite", fields: [responsibleSecurite_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  responsibleSecurite_id Int?
+  service                service?          @relation(fields: [service_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  service_id             Int?
+  team                   team?             @relation(fields: [team_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  team_id                Int?
+  dateAccident           DateTime?         @default(now())
+  hourAccident           String?
+  zone                   zone?             @relation(fields: [zone_id], references: [id], onDelete: SetNull)
+  zone_id                Int?
+  subzone                subzone?          @relation(fields: [subzone_id], references: [id], onDelete: SetNull)
+  subzone_id             Int?
+  circumstances          String?           @db.VarChar(300)
+  materialElements       fi_materialelements? @relation(fields: [materialElements_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  materialElements_id    Int?
+  lesionDetails          fi_lesiondetails?    @relation(fields: [lesionDetails_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  lesionDetails_id       Int?
+  lesionImage            String?
+  careProvided           fi_careprovided?     @relation(fields: [careProvided_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  careProvided_id        Int?
+  caregiver              String?           @db.VarChar(50)
+  careGived              String?           @db.VarChar(300)
+  image1                 String?
+  status                 String?           @db.VarChar(50)
+  assignation            user?             @relation("fiAssignation", fields: [assignation_id], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  assignation_id         Int?
+  classification         fi_classification?   @relation(fields: [classification_id], references: [id], onDelete: SetNull)
+  classification_id      Int?
+  commentaireStatus      String?
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @default(now())
+}
+
+model connection_ad {
+  id         Int      @id @default(autoincrement())
+  login_url  String
+  logout_url String
+  certificat String   @db.VarChar(2000)
+  disable    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model top5_calculhistorical {
+  id                Int                @id @default(autoincrement())
+  libelle           String
+  description       String             @default("")
+  indicator      top5_indicator[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt @default(now())
+}

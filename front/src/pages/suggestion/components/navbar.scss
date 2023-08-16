@@ -1,0 +1,14 @@
+.icone{
+    color: White;
+    font-size: 1.3em;
+    margin: 4px;
+    vertical-align: middle;
+     &:active{
+         color:Yellow;
+     }
+
+    //  &:focus{}
+     &:hover{
+         color:blueviolet;
+     }
+}

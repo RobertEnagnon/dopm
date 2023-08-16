@@ -1,0 +1,63 @@
+{
+  "common": {
+    "translate-button": "EN",
+    "translated-text": "This is english"
+  },
+  "signIn": {
+    "appName": "DOPM",
+    "appDescription": "Digital Operational Performance Management",
+    "connect": "Log in to access the application",
+    "username": "Username",
+    "password": "Password",
+    "login-button": "Sign In",
+    "specifierUser":"Specify the user name",
+    "specifierMdp":"Specify password"
+  },
+  "dashboard": {
+    "welcome": "WELCOME",
+    "dashboard": "Dashboard:",
+    "sidebarsettings": "Dashboard settings",
+    "sidebartools": "Tools",
+    "Top5": "Top 5",
+    "FicheSecurite": "Safety Card"
+  },
+  "ficheSecuriteCreation": {
+    "yup1": "The Category field is mandatory!",
+    "yup2": "The First Name field is mandatory!",
+    "yup3": "The Name field is mandatory!",
+    "yup4": "The Service field is mandatory!",
+    "yup5": "The Team field is mandatory!",
+    "yup6": "The zone field is mandatory!",
+    "yup7": "The field sub zone is mandatory!",
+    "yup8": "The Responsible field is mandatory!",
+    "yup9": "The Description field is required!",
+    "yup10": "The Security measure field is mandatory!",
+    "yup11": "The date must not be in the past",
+    "add1": "Card",
+    "add2": "has been added!",
+    "catTitle": "Category",
+    "senderTitle": "Transmitter",
+    "senderName": "Name",
+    "senderFirstName": "First name",
+    "senderService": "Service",
+    "senderTeam": "Team",
+    "senderSeclect": "Select",
+    "locationTitle": "Location of detection",
+    "location1": "Zone",
+    "location2": "Sub-Zone",
+    "descTite": "Description",
+    "SafetyAppliedTitle": "Safety Applied",
+    "SafetyAppliedAction": "Action",
+    "SafetyAppliedResponsible": "Responsible",
+    "SafetyProposalTitle": "Proposed measure",
+    "SafetyProposalDate": "Deadline",
+    "image": "Image",
+    "noimage": "No image inserted",
+    "add": "Add",
+    "update": "Edit",
+    "save": "Save",
+    "drop1": "Click or drop your file here",
+    "categorySeclectMobile": "Select",
+    "categoryMobile": "Category"
+  }
+}

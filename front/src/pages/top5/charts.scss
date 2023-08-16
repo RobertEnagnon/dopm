@@ -1,0 +1,40 @@
+.loadRing {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+
+  div {
+    box-sizing: border-box;
+    //display: block;
+    position: absolute;
+    width: 128px;
+    height: 128px;
+    margin: 12px;
+    border: 12px solid #3e4676;
+    border-radius: 50%;
+    animation: loadRing 2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #3e4676 transparent transparent transparent;
+    &:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+    &:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+    &:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+  }
+}
+
+@keyframes loadRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

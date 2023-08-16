@@ -1,0 +1,21 @@
+.input-checklist-name {
+	min-width: 180px;
+	max-width: 100%;
+	border: none;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 3px;
+
+	&:not(:first-child) {
+		margin-top: 10px;
+	}
+
+	&:focus {
+		outline: none;
+		border-bottom: 1px solid #3b7ddd;
+	}
+}
+
+.input-feedback {
+	color: red;
+	margin-top: .25rem;
+}

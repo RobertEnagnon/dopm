@@ -1,0 +1,33 @@
+{
+    "mail": {
+       "text1": "Bonjour",
+       "text2": "La fiche",
+       "text3": "à été ajouté",
+       "text4": "La fiche contient les informations ci-dessous",
+       "text5": "Référence",
+       "text6": "Lieu de detection",
+       "text7": "Sécurisation réalisée",
+       "text8": "Mesure proposée",
+       "text9": "Catégorie",
+       "text10": "Emetteur",
+       "text11": "Service",
+       "text12": "Equipe",
+       "text13": "Description",
+       "text14": "Zone",
+       "text15": "Sous zone",
+       "text16": "Action",
+       "text17": "Responsable",
+       "text18": "Date limite",
+       "text19": "à été modifiée",
+       "text20": "Champ",
+       "text21": "Anciennes Valeurs",
+       "text22": "Nouvelles Valeurs",
+       "text23": "Traitement",
+       "text24": "Status",
+       "text25": "Classification",
+       "text26": "Fiche",
+       "text27": "Modifiée",
+       "text28": "Ajoutée",
+       "text29": "Accédez à la fiche"
+    }
+}

@@ -1,0 +1,18 @@
+.popup-main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 10px;
+  gap: 20px;
+  h3 {
+    text-align: center;
+    margin: 10px 0;
+  }
+  .actions {
+    display: flex;
+    gap: 20px;
+  }
+}
+.create_at{
+  margin-top: 10px;
+}

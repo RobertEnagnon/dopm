@@ -1,0 +1,49 @@
+.centerTitle {
+  display: flex;
+  align-items: baseline;
+}
+
+.resetButton {
+    background-color: lightgray;
+    border-color: #b8b8b8;
+}
+
+.resetButton:hover {
+    background-color: #b8b8b8;
+    border-color: #b8b8b8;
+}
+
+.resetButton {
+    background-color: lightgray;
+    border-color: lightgray;
+  }
+  .resetButton:hover {
+    color: #fff;
+    background-color: #b8b8b8;
+    border-color: #b8b8b8;
+  }
+  .resetButton:focus,
+  .resetButton.focus {
+    color: #fff;
+    background-color: #b8b8b8;
+    border-color: #b8b8b8;
+    box-shadow: 0 0 0 0.2rem rgba(184, 184, 184, 0.5);
+  }
+  .resetButton.disabled,
+  .resetButton:disabled {
+    color: #fff;
+    background-color: lightgray;
+    border-color: lightgray;
+  }
+  .resetButton:not(:disabled):not(.disabled):active,
+  .resetButton:not(:disabled):not(.disabled).active,
+  .show > .resetButton.dropdown-toggle {
+    color: #fff;
+    background-color: #b8b8b8;
+    border-color: #b8b8b8;
+  }
+  .resetButton:not(:disabled):not(.disabled):active:focus,
+  .resetButton:not(:disabled):not(.disabled).active:focus,
+  .show > .resetButton.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(184, 184, 184, 0.5);
+  }

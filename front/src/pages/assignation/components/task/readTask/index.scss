@@ -1,0 +1,36 @@
+.nbResponsibles {
+    background: #a7a7a7;
+    border-radius: 100%;
+    width: 26px;
+    display: inline-block;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    color: white;
+    margin-left: -7px;
+    font-size: 12px;
+}
+
+.imgResponsible {
+    position: relative;
+    z-index: 1;
+}
+
+.timePanel {
+    padding: 0 7px;
+    background: #6c757d;
+    color: white;
+    border-radius: 3px;
+    font-size: 0.8rem;
+
+    &Danger {
+        background: #e36554;
+    }
+}
+
+.textSplitted {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

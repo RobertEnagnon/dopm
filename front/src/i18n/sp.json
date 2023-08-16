@@ -1,0 +1,24 @@
+{
+  "common": {
+    "translate-button": "SP",
+    "translated-text": "Es español"
+  },
+  "signIn": {
+    "appName": "DOPM",
+    "appDescription": "Digital Operational Performance Management",
+    "connect": "Iniciar sesión para acceder a la aplicación",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "login-button": "Entrar en el sistema",
+    "specifierUser":"Especifique el nombre de usuario",
+    "specifierMdp":"Especifique la contraseña"
+  },
+  "dashboard": {
+    "welcome": "Bienvenido",
+    "dashboard": "Tiempo",
+    "dashboardsettings": "Ajustes en el salpicadero",
+    "sidebartools": "Tools",
+    "Top5": "Top 5",
+    "FicheSecurite": "Ficha seguridad"
+  }
+}

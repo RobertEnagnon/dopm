@@ -1,0 +1,87 @@
+.icone{
+    color: White;
+    font-size: 1.3em;
+    margin: 4px;
+    vertical-align: middle;
+     &:active{
+         color:Yellow;
+     }
+
+    //  &:focus{}
+     &:hover{
+         color:blueviolet;
+     }
+}
+
+.css-julti5-MuiSwitch-root {
+  margin-right: -10px;
+  margin-top: -3px;
+  padding: 8px !important;
+
+  .MuiSwitch-track {
+    border-radius: 11px;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+    }
+
+    &:before {
+      content: 'on';
+      left: 13px;
+    }
+
+    &:after {
+      content: 'off';
+      right: 13px;
+    }
+  }
+
+  .Mui-checked {
+    + .MuiSwitch-track {
+      background-color: var(--green) !important;
+    }
+    .MuiSwitch-thumb {
+      color: var(--green) !important;
+    }
+  }
+
+  .MuiSwitch-thumb {
+    box-shadow: none;
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+  }
+}
+
+#searchList {
+    position: absolute;
+    top: 100%;
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    width: 260px;
+    right: 0;
+    background: #f4f7fc;
+    z-index: 2;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgb(126 142 177);
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.searchIconPlaceholder {
+    font-size: 0.85em;
+    position: absolute;
+    top: 20px;
+    z-index: 1;
+    color: #a7a7a7;
+    right: 18px;
+}

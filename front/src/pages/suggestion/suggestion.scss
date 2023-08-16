@@ -1,0 +1,102 @@
+
+.radioCheck {
+    input[type=radio] {
+      display: none;
+    }
+    label:not(:first-child) {
+      display: inline;
+      padding: 8px 15px;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #28A745;
+      border: 1px solid #28A745;
+      margin: 12px 3px;
+      border-radius: 100%;
+    }
+    label:not(:first-child):hover {
+      background-color: #28A74511;
+    }
+    input[type=radio]:checked+label {
+      color: white;
+      background-color: #28A745;
+      border: none;
+    }
+  }
+  
+  .radioCheckRead {
+    input[type=radio] {
+      display: none;
+    }
+    label:not(:first-child) {
+        display: inline;
+        padding: 8px 15px;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #28A745;
+        border: 1px solid #28A745;
+        margin: 12px 3px;
+        border-radius: 100%;
+    }
+    input[type=radio]:checked+label {
+      color: white;
+      background-color: #28A745;
+      border: none;
+    }
+  }
+  
+  .radioCross {
+    input[type=radio] {
+      display: none;
+    }
+    label:not(:first-child):hover {
+      background-color: #DC354511;
+    }
+    label:not(:first-child) {
+        display: inline;
+        padding: 8px 15px;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #DC3545;
+        border: 1px solid #DC3545;
+        margin: 12px 3px;
+        border-radius: 100%;
+    }
+    input[type=radio]:checked+label {
+      color: white;
+      background-color: #DC3545;
+      border: none;
+    }
+  }
+  
+  .radioCrossRead {
+    input[type=radio] {
+      display: none;
+    }
+    label:not(:first-child) {
+        display: inline;
+        padding: 8px 15px;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #DC3545;
+        border: 1px solid #DC3545;
+        margin: 12px 3px;
+        border-radius: 100%;
+    }
+    input[type=radio]:checked+label {
+      color: white;
+      background-color: #DC3545;
+      border: none;
+    }
+  }

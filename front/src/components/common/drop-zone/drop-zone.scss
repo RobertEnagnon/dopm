@@ -1,0 +1,43 @@
+//////////drag-drop
+.drag-drop{
+    display: block;
+    width: 100%;
+}
+.drag-drop .drag-drop-child{
+    padding: 15px 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+.drag-drop .drop-ital{
+    font-style: italic;
+    font-size: 0.8em;
+}
+.drag-drop p{
+    margin-left: 10px;
+}
+.drag-drop p span{
+    margin-left: 10px;
+}
+.drag-drop .drag-error{
+    color: crimson;
+}
+.drag-drop-child>p, .drag-drop-child>p>span{
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.drag-drop-child>p .file{
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.drag-drop .drag-drop-child .drop-svg{
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+//////////drag-drop

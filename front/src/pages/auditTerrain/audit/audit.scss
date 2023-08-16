@@ -1,0 +1,224 @@
+.checkCard {
+  border-radius: 12px;
+  background-color: #f8f8f8;
+}
+
+.grayCheckCard {
+  border-radius: 12px;
+  background-color: #cecece77;
+}
+
+.title {
+  font-size: 16px;
+}
+
+.radioCheck {
+  input[type=radio] {
+    display: none;
+  }
+
+  label:not(:first-child) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #28A745;
+    border: 1px solid #28A745;
+    margin: 12px 3px;
+    border-radius: 100%;
+  }
+
+  label:not(:first-child):hover {
+    background-color: #28A74511;
+  }
+
+  input[type=radio]:checked+label {
+    color: white;
+    background-color: #28A745;
+    border: none;
+  }
+}
+
+.radioCheckRead {
+  input[type=radio] {
+    display: none;
+  }
+
+  label:not(:first-child) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #28A745;
+    border: 1px solid #28A745;
+    margin: 12px 3px;
+    border-radius: 100%;
+  }
+
+  input[type=radio]:checked+label {
+    color: white;
+    background-color: #28A745;
+    border: none;
+  }
+}
+
+.radioNARead {
+  input[type=radio] {
+    display: none;
+  }
+
+  label:not(:first-child) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ff9c07;
+    border: 1px solid #ff9c07;
+    margin: 12px 3px;
+    border-radius: 100%;
+  }
+
+  input[type=radio]:checked+label {
+    color: white;
+    background-color: #ff9c07;
+    border: none;
+  }
+}
+
+.radioCross {
+  input[type=radio] {
+    display: none;
+  }
+
+  label:not(:first-child):hover {
+    background-color: #DC354511;
+  }
+
+  label:not(:first-child) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #DC3545;
+    border: 1px solid #DC3545;
+    margin: 12px 3px;
+    border-radius: 100%;
+  }
+
+  input[type=radio]:checked+label {
+    color: white;
+    background-color: #DC3545;
+    border: none;
+  }
+}
+
+.radioCrossRead {
+  input[type=radio] {
+    display: none;
+  }
+
+  label:not(:first-child) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #DC3545;
+    border: 1px solid #DC3545;
+    margin: 12px 3px;
+    border-radius: 100%;
+  }
+
+  input[type=radio]:checked+label {
+    color: white;
+    background-color: #DC3545;
+    border: none;
+  }
+}
+
+
+
+@media only screen and (max-width: 600px) {
+  .title {
+    font-size: 13px;
+    line-height: 1;
+    margin-bottom: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .descriptionCheckpoint {
+    font-size: 11px;
+    margin-bottom: 0px;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    overflow: hidden;
+  }
+
+  .radioCheck {
+    label:not(:first-child) {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      margin: 4px 3px;
+    }
+  }
+
+  .radioCheckRead {
+    label:not(:first-child) {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      margin: 12px 3px;
+    }
+  }
+
+  .radioNARead {
+    label:not(:first-child) {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      margin: 12px 3px;
+    }
+  }
+
+  .radioCross {
+    label:not(:first-child) {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      margin: 12px 3px;
+    }
+  }
+
+  .radioCrossRead {
+    label:not(:first-child) {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      margin: 12px 3px;
+    }
+  }
+}
